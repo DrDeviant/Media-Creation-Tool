@@ -60,3 +60,4 @@
 2021.05.23: 21H1 release; enhanced script name args parsing, upgrade from embedded, auto.cmd / PID.txt / $OEM$ import
 2021.06.06: create iso directly; enhanced dialogs; args from script name or commandline; refactoring is complete! 
 ```
+>I'm not owner 
