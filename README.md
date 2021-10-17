@@ -1,37 +1,30 @@
-![Preview](https://i.imgur.com/zc3Stcl.png)  
+Not just an Universal MediaCreationTool wrapper script with ingenious support for business editions,  
+<img src="preview.png">
+A powerful yet simple windows 10 / 11 deployment automation tool as well!  
 
->**Create ISO directly** now available if ISO var set / script renamed with `iso` / provided via commandline  
-> *via built-in powershell snippet*  
+> configure via set vars, commandline parameters or rename script like `iso 21H2 Pro MediaCreationTool.bat`  
+> recommended windows setup options with the least amount of issues on upgrades set via auto.cmd  
+> awesome dialogs with keyboard focus to pick target version and preset action  
 
->**Dialogs** to pick version, then to pick `Auto Setup`, `Create ISO` or `Select in MCT`  
-> *now more readable by using inverted selection style, and streamlined in a single powershell instance*  
+> **Auto Setup** with detected media without confirmation  
+> _- can troubleshoot upgrade failing by adding `no_update` to script name_  
+> **Create ISO** with detected media in `C:\ESD` folder without confirmation  
+> _- can override detected media by adding edition name / language / arch to script name_  
+> **Create USB** with detected media after confirmation  
+> _- can click Back and select ISO instead to save in a different path_  
+> custom presets above support 'oem' media customization, that can be disabled by adding `no_oem` to script name  
+> _- pickup `$OEM$` folder (if it exists) with any post setup tweaks like `$OEM$\$$\Setup\Scripts\setupcomplete.cmd`_  
+> _- write `sources\PID.txt` file to preselect edition at media boot or setup within windows (if configured)_  
+> _- write `auto.cmd` file to re-run auto setup on demand, from media (includes Skip TPM if sources are 11)_  
+> _- write `winpeshl.ini` file in boot.wim to Skip TPM Check on media boot (if sources are 11)_  
+> **Select in MCT** with manual confirmation for everything in MCT GUI  
+> _- no 'oem' media customization, script passes products.xml configuration and quits without touching media_  
 
->**Enhanced script name / commandline args parsing** - _can just rename the script with:_  
-> `auto MediaCreationTool.bat` _to auto upgrade 21H1 - unattended, usually straight to desktop_  
-> `auto no_update 1909 MediaCreationTool.bat` _to auto upgrade 1909 with Dynamic Update (latest LCU) OFF_  
-> `pro auto 20H2 MediaCreationTool.bat` _to auto upgrade 20H2 and force Professional edition_  
-> `enterprise 21H1 iso MediaCreationTool.bat` _to create 21H1 Enterprise iso directly_  
-> Forcing an edition will skip the selection dialog when booting from media, if it's an existing index.  
-> ProfessionalWorkstation and ProfessionalEducation should also work, but only for upgrades.  
-> Makes editing the script text hardly needed. Can even set a retail / mak product key via script name.  
-> More examples at the top of the script  
+> Skip TPM Check on Dynamic Update v1 _(wmi-based)_ or v2 _(ifeo-based)_ standalone toggle scripts in `MCT\` dir  
+> _- system-wide, unblocks insider previews on windows update, or running setup.exe manually while online_  
+> _- when using created media on another pc for the first time, can launch `auto.cmd` from media once to enable_  
 
->**Enhanced Auto Setup and Create ISO** presets with embedded and cross-edition fix  
-> Now usable from PosReady7 / Embedded where default MCT fails / can't upgrade keeping files and apps.  
-> Script waits in the background for MCT to finish the first phase of creating upgrade media.  
-> Then will copy `auto.cmd`, `PID.txt` and `$OEM$` dir to the iso sources folder (disable with `no_oem`).  
-> Once that's done, it will launch setupprep for the second phase via `auto.cmd`, and finally quit.  
-> Can start again this unattended upgrade setup (under windows), from `auto.cmd` on the iso / usb.  
-> Featuring DIR2ISO snippet to create bootable ISO directly via script (MCT lacks public option for it)  
-
->**Dynamic Update** (downloading and installing latest LCU) default enabled, starts only for upgrade action.  
-> It won't be included on created media. Instead, it starts if launching `auto.cmd` from media under Windows  
-> Unlike using setup directly, it does a seamless upgrade with no prompts and the MCT troubleshooting OPTIONS  
-> Working as intended, there's no need to recreate the iso / usb every month - but only on new esd releases.  
-> Previously, the script disabled and ignored Dynamic Update, as it was not reliable enough.  
-> _(upgrade with dynamic update can still fail with some packages, hence the `no_update` option)_  
-
->*bugs can happen after substantial refactoring in such scripts, so please report any you can find*  
+_We did it! We broke gist.github.com_ ;) So this is the new home now. **Thank you all!**  
 
 [discuss on MDL](https://forums.mydigitallife.net/forums/windows-10.54/)  
 
@@ -55,9 +48,21 @@
             updated executables links for 1903 and 2004
 2020.11.17: parse first commandline parameter as version, example: MediaCreationTool.bat 1909
 2020.12.01: attempt to fix reported issues with 1703; no other changes (skipping 19042.630 leaked esd because it is broken)
-2020.12.11: 20H2 19042.631; fixed pesky 1703 decryption bug on dual x86 + x64; improved cleanup; label includes version  
+2020.12.11: 20H2 19042.631; fixed pesky 1703 decryption bug on dual x86 + x64; improved cleanup; label includes version
 2021.03.20: pre-release 21H1; optional auto upgrade or create media presets importing $OEM$ folder and key as PID.txt
 2021.05.23: 21H1 release; enhanced script name args parsing, upgrade from embedded, auto.cmd / PID.txt / $OEM$ import
-2021.06.06: create iso directly; enhanced dialogs; args from script name or commandline; refactoring is complete! 
+2021.06.06: create iso directly; enhanced dialogs; args from script name or commandline; refactoring is complete!
+2021.08.04: done fiddling
+2021.09.03: 21H2, both 10 and 11 [unreleased]
+2021.09.25: Windows 11
+            with Skip TPM Check on media boot as well as on dynamic update (standalone toggle script available)
+            final touches for improved script reliability; enhanced auto upgrade preset; win 7 powershell 2.0 compatible
+2021.09.30: fix Auto Setup preset not launching.. automatically
+2021.10.04: fix for long standing tr localization quirks; Skip TPM Check v2 (ifeo-based instead of wmi)
+2021.10.05: 11 22000.194 Release (rofl W11 MCT has limited capabilities, so still using 21H1 MCT because it works fine)
+2021.10.09: outstanding refactoring around Windows 11 MCT; minimize while waiting MCT; unified 7 - 11 appearence
 ```
+
+_use `download ZIP` button or pastebin link to get the script, as saving the Raw file breaks line endings_  
+
 >I'm not owner 
